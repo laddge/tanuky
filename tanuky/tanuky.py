@@ -1,4 +1,5 @@
 import yaml
+import markdown
 
 
 class MdDoc:
@@ -17,3 +18,6 @@ class Tanuky:
         self.srcdir = srcdir
         self.tpldir = tpldir
         self.distdir = distdir
+
+    def mkhtml(self, mdbody):
+        return markdown.markdown(mdbody)
