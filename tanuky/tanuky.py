@@ -55,7 +55,8 @@ class Tanuky:
                     with open(saveto, "w") as f:
                         f.write(tpl.render(config))
                 else:
-                    shutil.copy(path, saveto)
+                    if os.path.isfile(path):
+                        shutil.copy(path, saveto)
             if os.path.isfile(self.distdir):
                 os.remove(self.distdir)
             if os.path.isdir(self.distdir):
