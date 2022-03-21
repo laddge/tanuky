@@ -15,6 +15,7 @@ class RenderingErr(Exception):
 
 class MdDoc:
     def __init__(self, path):
+        self.path = path
         with open(path) as f:
             s = f.read()
 
@@ -29,6 +30,7 @@ class Tanuky:
         self.srcdir = srcdir
         self.tpldir = tpldir
         self.distdir = distdir
+        self.mdlist = []
         self.globals = {}
 
     def mkhtml(self, mdbody):
@@ -41,25 +43,29 @@ class Tanuky:
                 saveto = os.path.join(tmpdir, re.sub(f"^{self.srcdir}/?", "", path))
                 os.makedirs(os.path.dirname(saveto), exist_ok=True)
                 if path[-3:] == ".md":
-                    doc = MdDoc(path)
-                    params = copy.deepcopy(self.globals)
-                    params.update(doc.config)
-                    params["Body"] = self.mkhtml(doc.body)
-
-                    if "Template" not in params.keys():
-                        raise RenderingErr("No template specified")
-                    tplpath = os.path.join(self.tpldir, doc.config["Template"] + ".html")
-                    if not os.path.exists(tplpath):
-                        raise RenderingErr("Template not found")
-                    with open(tplpath) as f:
-                        tpl = jinja2.Template(f.read())
-
-                    saveto = saveto[:-3] + ".html"
-                    with open(saveto, "w") as f:
-                        f.write(tpl.render(params))
+                    self.mdlist.append(MdDoc(path))
                 else:
                     if os.path.isfile(path):
                         shutil.copy(path, saveto)
+
+            for mddoc in self.mdlist:
+                params = copy.deepcopy(self.globals)
+                params.update(mddoc.config)
+                params["Body"] = self.mkhtml(mddoc.body)
+
+                if "Template" not in params.keys():
+                    raise RenderingErr("No template specified")
+                tplpath = os.path.join(self.tpldir, mddoc.config["Template"] + ".html")
+                if not os.path.exists(tplpath):
+                    raise RenderingErr("Template not found")
+                with open(tplpath) as f:
+                    tpl = jinja2.Template(f.read())
+
+                saveto = os.path.join(tmpdir, re.sub(f"^{self.srcdir}/?", "", mddoc.path))
+                saveto = saveto[:-3] + ".html"
+                with open(saveto, "w") as f:
+                    f.write(tpl.render(params))
+
             if os.path.isfile(self.distdir):
                 os.remove(self.distdir)
             if os.path.isdir(self.distdir):
