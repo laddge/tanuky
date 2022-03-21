@@ -25,7 +25,7 @@ class MdDoc:
 
 
 class Tanuky:
-    def __init__(self, srcdir="./src", tpldir="./template", distdir="./dist"):
+    def __init__(self, srcdir="./src", tpldir="./templates", distdir="./dist"):
         self.srcdir = srcdir
         self.tpldir = tpldir
         self.distdir = distdir
