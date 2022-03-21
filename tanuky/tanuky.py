@@ -28,6 +28,7 @@ class Tanuky:
         self.srcdir = srcdir
         self.tpldir = tpldir
         self.distdir = distdir
+        self.globals = {}
 
     def mkhtml(self, mdbody):
         return markdown.markdown(mdbody)
@@ -40,10 +41,11 @@ class Tanuky:
                 os.makedirs(os.path.dirname(saveto), exist_ok=True)
                 if path[-3:] == ".md":
                     doc = MdDoc(path)
-                    config = doc.config
-                    config["Body"] = self.mkhtml(doc.body)
+                    params = self.globals
+                    params.update(doc.config)
+                    params["Body"] = self.mkhtml(doc.body)
 
-                    if "Template" not in config.keys():
+                    if "Template" not in params.keys():
                         raise RenderingErr("No template specified")
                     tplpath = os.path.join(self.tpldir, doc.config["Template"] + ".html")
                     if not os.path.exists(tplpath):
@@ -53,7 +55,7 @@ class Tanuky:
 
                     saveto = saveto[:-3] + ".html"
                     with open(saveto, "w") as f:
-                        f.write(tpl.render(config))
+                        f.write(tpl.render(params))
                 else:
                     if os.path.isfile(path):
                         shutil.copy(path, saveto)
