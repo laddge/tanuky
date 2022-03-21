@@ -4,6 +4,7 @@ import shutil
 import re
 import tempfile
 import glob
+import tqdm
 import yaml
 import markdown
 import jinja2
@@ -37,9 +38,13 @@ class Tanuky:
         return markdown.markdown(mdbody)
 
     def generate(self):
+        print(f"srcdir = '{self.srcdir}'")
+        print(f"tpldir = '{self.tpldir}'")
+        print(f"distdir = '{self.distdir}'")
         files = glob.glob(os.path.join(self.srcdir, "**"), recursive=True)
         with tempfile.TemporaryDirectory() as tmpdir:
-            for path in files:
+            print(" - Scanning...")
+            for path in tqdm.tqdm(files):
                 saveto = os.path.join(tmpdir, re.sub(f"^{self.srcdir}/?", "", path))
                 os.makedirs(os.path.dirname(saveto), exist_ok=True)
                 if path[-3:] == ".md":
@@ -48,7 +53,8 @@ class Tanuky:
                     if os.path.isfile(path):
                         shutil.copy(path, saveto)
 
-            for mddoc in self.mdlist:
+            print(" - Rendering...")
+            for mddoc in tqdm.tqdm(self.mdlist):
                 params = copy.deepcopy(self.globals)
                 params.update(mddoc.config)
                 params["Body"] = self.mkhtml(mddoc.body)
@@ -71,3 +77,4 @@ class Tanuky:
             if os.path.isdir(self.distdir):
                 shutil.rmtree(self.distdir)
             shutil.copytree(tmpdir, self.distdir)
+            print(" - Done.")
