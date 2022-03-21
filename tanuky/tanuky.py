@@ -1,4 +1,5 @@
 import os
+import copy
 import shutil
 import re
 import tempfile
@@ -41,7 +42,7 @@ class Tanuky:
                 os.makedirs(os.path.dirname(saveto), exist_ok=True)
                 if path[-3:] == ".md":
                     doc = MdDoc(path)
-                    params = self.globals
+                    params = copy.deepcopy(self.globals)
                     params.update(doc.config)
                     params["Body"] = self.mkhtml(doc.body)
 
