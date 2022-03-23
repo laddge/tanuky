@@ -11,11 +11,24 @@ import jinja2
 
 
 class RenderingErr(Exception):
+    """RenderingErr.
+    """
+
     pass
 
 
 class MdDoc:
+    """MdDoc.
+    """
+
     def __init__(self, path):
+        """__init__.
+
+        Parameters
+        ----------
+        path :
+            path
+        """
         self.path = path
         with open(path) as f:
             s = f.read()
@@ -27,7 +40,21 @@ class MdDoc:
 
 
 class Tanuky:
+    """Tanuky.
+    """
+
     def __init__(self, srcdir="./src", tpldir="./templates", distdir="./dist"):
+        """__init__.
+
+        Parameters
+        ----------
+        srcdir :
+            srcdir
+        tpldir :
+            tpldir
+        distdir :
+            distdir
+        """
         self.srcdir = srcdir
         self.tpldir = tpldir
         self.distdir = distdir
@@ -35,9 +62,18 @@ class Tanuky:
         self.globals = {}
 
     def mkhtml(self, mdbody):
+        """mkhtml.
+
+        Parameters
+        ----------
+        mdbody :
+            mdbody
+        """
         return markdown.markdown(mdbody)
 
     def generate(self):
+        """generate.
+        """
         print(f"srcdir = '{self.srcdir}'")
         print(f"tpldir = '{self.tpldir}'")
         print(f"distdir = '{self.distdir}'")
