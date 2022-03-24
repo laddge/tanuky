@@ -173,6 +173,9 @@ tnk.generate()
 ```
 
 ## Release Note
+### [v1.0.1](https://github.com/laddge/tanuky/releases/tag/v1.0.1) (2022/03/24)
+Fix install bug
+
 ### [v1.0.0](https://github.com/laddge/tanuky/releases/tag/v1.0.0) (2022/03/24)
 First release
 
