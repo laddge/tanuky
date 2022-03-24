@@ -102,7 +102,7 @@ ex:
 <!DOCTYPE html>
 <html>
     <head>
-		<meta name="description" content="{{ Desc }}">
+        <meta name="description" content="{{ Desc }}">
         <title>{{ Title }}</title>
     </head>
     <body>
@@ -171,6 +171,10 @@ class MyTanuky(tanuky.Tanuky):
 tnk = MyTanuky()
 tnk.generate()
 ```
+
+## Release Note
+### [v1.0.0](https://github.com/laddge/tanuky/releases/tag/v1.0.0) (2022/03/24)
+First release
 
 ## License
 This plugin is under the MIT-License.  
