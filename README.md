@@ -46,14 +46,14 @@ python setup.py install
 └── generate.py
 ```
 
-* distdir (default: ./dist)
+* distdir (default: ./dist)  
 Generated files are placed here.  
 Overwritten each times.
 
-* srcdir (default: ./src)
+* srcdir (default: ./src)  
 Put source files here.
 
-* tpldir (default: ./templates)
+* tpldir (default: ./templates)  
 Put templates here.  
 Template files must be named ```{template_name}.html```.
 
@@ -85,15 +85,15 @@ Desc: test page
 hoge...
 ```
 
-* Front matter
+* Front matter  
 Write page config between "---" in Yaml.  
 Its value passed to the template.
 
-* Template name
+* Template name  
 Template name must be defined in Front matter.  
 And, respective template file must be in tpldir.
 
-* Markdown sentences
+* Markdown sentences  
 Markdown sentences are convert to HTML and passed to template as "Body".
 
 ### How to write templates
@@ -124,14 +124,12 @@ tnk.generate()
 ```
 The generator works with just this script.
 
-* ```tnk = tanuky.Tanuky()```
+* ```tnk = tanuky.Tanuky()```  
 Define the generator object.  
-You can specify srcdir, tpldir, distdir like this:
-```
-tnk = tanuky.Tanuky(srcdir="./src", tpldir="./templates", distdir="./dist")
-```
+You can specify srcdir, tpldir, distdir like this:  
+```tnk = tanuky.Tanuky(srcdir="./src", tpldir="./templates", distdir="./dist")```
 
-* ```tnk.generate()```
+* ```tnk.generate()```  
 Start generate process.
 
 ### Advanced
