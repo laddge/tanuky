@@ -173,6 +173,9 @@ tnk.generate()
 ```
 
 ## Release Note
+### [v1.0.2](https://github.com/laddge/tanuky/releases/tag/v1.0.2) (2022/03/25)
+Add example tree
+
 ### [v1.0.1](https://github.com/laddge/tanuky/releases/tag/v1.0.1) (2022/03/24)
 Fix install bug
 
