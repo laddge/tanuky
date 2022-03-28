@@ -58,6 +58,7 @@ class Tanuky:
         self.srcdir = srcdir
         self.tpldir = tpldir
         self.distdir = distdir
+        self.env = jinja2.Environment(loader=jinja2.FileSystemLoader(tpldir))
         self.mdlist = []
         self.globals = {}
 
@@ -97,11 +98,8 @@ class Tanuky:
 
                 if "Template" not in params.keys():
                     raise RenderingErr("No template specified")
-                tplpath = os.path.join(self.tpldir, mddoc.config["Template"] + ".html")
-                if not os.path.exists(tplpath):
-                    raise RenderingErr("Template not found")
-                with open(tplpath) as f:
-                    tpl = jinja2.Template(f.read())
+                tplname = mddoc.config["Template"] + ".html"
+                tpl = self.env.get_template(tplname)
 
                 saveto = os.path.join(tmpdir, re.sub(f"^{self.srcdir}/?", "", mddoc.path))
                 saveto = saveto[:-3] + ".html"

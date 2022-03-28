@@ -133,6 +133,32 @@ You can specify srcdir, tpldir, distdir like this:
 Start generate process.
 
 ### Advanced
+#### Include other templates
+ex:
+
+* templates/header.html
+```
+<header>
+    <a href="/">{{ Title }}</a>
+</header>
+```
+
+* templates/page.html
+```
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="description" content="{{ Desc }}">
+        <title>{{ Title }}</title>
+    </head>
+    <body>
+        {% include "header.html" %}
+        {{ Body }}
+    </body>
+</html>
+```
+You can include other templates using ```{% include "{template_name}.html" %}```.
+
 #### Define globals
 ex:
 ```
@@ -176,6 +202,10 @@ tnk.generate()
 An example is available on [laddge/tanuky-example](https://github.com/laddge/tanuky-example).
 
 ## Release Note
+### [v1.1.0](https://github.com/laddge/tanuky/releases/tag/v1.1.0) (2022/03/28)
+Use Jinja2 environment  
+**This update allows you to use all the features of Jinja2**
+
 ### [v1.0.3](https://github.com/laddge/tanuky/releases/tag/v1.0.3) (2022/03/28)
 Move example tree to another repo
 
