@@ -172,7 +172,13 @@ tnk = MyTanuky()
 tnk.generate()
 ```
 
+## Example
+An example is available on [laddge/tanuky-example](https://github.com/laddge/tanuky-example).
+
 ## Release Note
+### [v1.0.3](https://github.com/laddge/tanuky/releases/tag/v1.0.3) (2022/03/28)
+Move example tree to another repo
+
 ### [v1.0.2](https://github.com/laddge/tanuky/releases/tag/v1.0.2) (2022/03/25)
 Add example tree
 
