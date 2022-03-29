@@ -21,15 +21,17 @@ class MdDoc:
     """MdDoc.
     """
 
-    def __init__(self, path):
+    def __init__(self, path, url):
         """__init__.
 
         Parameters
         ----------
         path :
             path
+        url :
+            url
         """
-        self.path = path
+        self.url = url
         with open(path) as f:
             s = f.read()
 
@@ -106,7 +108,7 @@ class Tanuky:
                 saveto = os.path.join(tmpdir, re.sub(f"^{self.srcdir}/?", "", path))
                 os.makedirs(os.path.dirname(saveto), exist_ok=True)
                 if path[-3:] == ".md":
-                    self.mdlist.append(MdDoc(path))
+                    self.mdlist.append(MdDoc(path, re.sub(f"^{self.srcdir}/?", "/", path)))
                 else:
                     if os.path.isfile(path):
                         if self.handler:
@@ -127,6 +129,7 @@ class Tanuky:
                 params = copy.deepcopy(self.globals)
                 params.update(mddoc.config)
                 params["Body"] = self.mkhtml(mddoc.body)
+                params["MdList"] = self.mdlist
 
                 if "Template" not in params.keys():
                     raise RenderingErr("No template specified")
