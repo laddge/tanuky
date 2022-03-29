@@ -40,6 +40,8 @@ python setup.py install
 │   │   └── main.js
 │   ├── pages
 │   │   └── example.md
+│   ├── .build
+│   │   └── hoge.txt
 │   └── index.html
 ├── templates # tpldir
 │   └── hoge.html
@@ -70,7 +72,8 @@ After generated:
 │   └── example.html
 └── index.html
 ```
-Like this, Markdown is converted to HTML and other files are copied exactly as they are.
+Like this, Markdown is converted to HTML and other files are copied exactly as they are.  
+**Dotted files and dirs are NOT copied.**
 
 ### How to write Markdown
 ex:
@@ -114,7 +117,7 @@ Tanuky uses template engine [Jinja2](https://jinja.palletsprojects.com/).
 Variables defined in Front matter can be used in template.  
 ```{{ Body }}``` shows contents which is converted from Markdown.
 
-### Generate script
+### Generator script
 ```
 # generate.py
 import tanuky
@@ -133,6 +136,28 @@ You can specify srcdir, tpldir, distdir like this:
 Start generate process.
 
 ### Advanced
+#### Define custom handler
+ex:
+```
+# generate.py
+import tanuky
+import sass # requires "libsass"
+
+tnk = tanuky.Tanuky()
+
+
+@tnk.handle("**/*.scss")
+def compile_scss(contents, saveto):
+    css = sass.compile(string=contents.decode())
+    saveto = saveto[:-4] + "css"
+    return css.encode(), saveto
+
+
+tnk.generate()
+```
+This feature allows you to compile SCSS, minify js or images, etc.  
+**Note: Contents of the file are passed as bytes object.**
+
 #### Include other templates
 ex:
 
@@ -202,6 +227,9 @@ tnk.generate()
 An example is available on [laddge/tanuky-example](https://github.com/laddge/tanuky-example).
 
 ## Release Note
+### [v1.2.0](https://github.com/laddge/tanuky/releases/tag/v1.2.0) (2022/03/29)
+Add handler
+
 ### [v1.1.0](https://github.com/laddge/tanuky/releases/tag/v1.1.0) (2022/03/28)
 Use Jinja2 environment  
 **This update allows you to use all the features of Jinja2**
@@ -219,7 +247,7 @@ Fix install bug
 First release
 
 ## License
-This plugin is under the MIT-License.  
+This project is under the MIT-License.  
 See also [LICENSE](LICENSE).
 
 ## Author
