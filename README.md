@@ -227,6 +227,9 @@ tnk.generate()
 An example is available on [laddge/tanuky-example](https://github.com/laddge/tanuky-example).
 
 ## Release Note
+### [v1.2.3](https://github.com/laddge/tanuky/releases/tag/v1.2.3) (2022/03/29)
+Fix url of MdDoc object
+
 ### [v1.2.2](https://github.com/laddge/tanuky/releases/tag/v1.2.2) (2022/03/29)
 Fix error
 

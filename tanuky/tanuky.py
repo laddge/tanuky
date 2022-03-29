@@ -109,7 +109,8 @@ class Tanuky:
                 saveto = os.path.join(tmpdir, re.sub(f"^{self.srcdir}/?", "", path))
                 os.makedirs(os.path.dirname(saveto), exist_ok=True)
                 if path[-3:] == ".md":
-                    self.mdlist.append(MdDoc(path, re.sub(f"^{self.srcdir}/?", "/", path)))
+                    url = re.sub(f"^{self.srcdir}/?", "/", path)[:-2] + "html"
+                    self.mdlist.append(MdDoc(path, url))
                 else:
                     if os.path.isfile(path):
                         if self.handler:
