@@ -31,6 +31,7 @@ class MdDoc:
         url :
             url
         """
+        self.path = path
         self.url = url
         with open(path) as f:
             s = f.read()

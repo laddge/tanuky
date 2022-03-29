@@ -227,6 +227,9 @@ tnk.generate()
 An example is available on [laddge/tanuky-example](https://github.com/laddge/tanuky-example).
 
 ## Release Note
+### [v1.2.2](https://github.com/laddge/tanuky/releases/tag/v1.2.2) (2022/03/29)
+Fix error
+
 ### [v1.2.1](https://github.com/laddge/tanuky/releases/tag/v1.2.1) (2022/03/29)
 Provide Markdown list
 
