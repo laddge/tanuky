@@ -61,30 +61,9 @@ class Tanuky:
         self.srcdir = srcdir
         self.tpldir = tpldir
         self.distdir = distdir
-        self.handler = {}
         self.env = jinja2.Environment(loader=jinja2.FileSystemLoader(tpldir))
         self.mdlist = []
         self.globals = {}
-
-    def handle(self, globpath):
-        """handle.
-
-        Parameters
-        ----------
-        globpath :
-            globpath
-        """
-        def wrp(func):
-            """wrp.
-
-            Parameters
-            ----------
-            func :
-                func
-            """
-            self.handler[globpath] = func
-            return func
-        return wrp
 
     def mkhtml(self, mdbody):
         """mkhtml.
@@ -113,18 +92,7 @@ class Tanuky:
                     self.mdlist.append(MdDoc(path, url))
                 else:
                     if os.path.isfile(path):
-                        if self.handler:
-                            for globpath, func in self.handler.items():
-                                globpath = os.path.join(self.srcdir, globpath)
-                                if path in glob.glob(globpath, recursive=True):
-                                    with open(path, "rb") as f:
-                                        contents, saveto = func(f.read(), saveto)
-                                    with open(saveto, "wb") as f:
-                                        f.write(contents)
-                                else:
-                                    shutil.copy(path, saveto)
-                        else:
-                            shutil.copy(path, saveto)
+                        shutil.copy(path, saveto)
 
             print(" - Rendering...")
             for mddoc in tqdm.tqdm(self.mdlist):

@@ -136,28 +136,6 @@ You can specify srcdir, tpldir, distdir like this:
 Start generate process.
 
 ### Advanced
-#### Define custom handler
-ex:
-```
-# generate.py
-import tanuky
-import sass # requires "libsass"
-
-tnk = tanuky.Tanuky()
-
-
-@tnk.handle("**/*.scss")
-def compile_scss(contents, saveto):
-    css = sass.compile(string=contents.decode())
-    saveto = saveto[:-4] + "css"
-    return css.encode(), saveto
-
-
-tnk.generate()
-```
-This feature allows you to compile SCSS, minify js or images, etc.  
-**Note: Contents of the file are passed as bytes object.**
-
 #### Include other templates
 ex:
 
@@ -227,6 +205,9 @@ tnk.generate()
 An example is available on [laddge/tanuky-example](https://github.com/laddge/tanuky-example).
 
 ## Release Note
+### [v1.3.0](https://github.com/laddge/tanuky/releases/tag/v1.3.0) (2022/03/30)
+Remove handler feature
+
 ### [v1.2.3](https://github.com/laddge/tanuky/releases/tag/v1.2.3) (2022/03/29)
 Fix url of MdDoc object
 
