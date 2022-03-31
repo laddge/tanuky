@@ -205,6 +205,9 @@ tnk.generate()
 An example is available on [laddge/tanuky-example](https://github.com/laddge/tanuky-example).
 
 ## Release Note
+### [v1.3.1](https://github.com/laddge/tanuky/releases/tag/v1.3.1) (2022/03/31)
+Fix Markdown parser
+
 ### [v1.3.0](https://github.com/laddge/tanuky/releases/tag/v1.3.0) (2022/03/30)
 Remove handler feature
 
